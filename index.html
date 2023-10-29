@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Kalkulator</title>
+<style>
+.kalkulator{
+    width: 265px;
+    height: 330px;
+    margin: auto;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.przycisk {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    border: 1px solid black;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+}
+
+#dzialanie{
+    margin: 1px;
+    border: 1px solid white;
+    padding: 1px;
+    text-align: right;
+}
+#wynik{
+    height: 50px;
+    width:240px;
+    border: 1px solid black;
+}
+
+</style>
+
+</head>
+
+<body>
+<div class="kalkulator">
+    <div id="dzialanie"></div>
+    <input type="text" id="wynik" readonly>
+    <br>
+    <button class="przycisk" onclick="cyfra(1)">1</button>
+    <button class="przycisk" onclick="cyfra(2)">2</button>
+    <button class="przycisk" onclick="cyfra(3)">3</button>
+    <button class="przycisk" onclick="operacja('+')">+</button>
+    <br>
+    <button class="przycisk" onclick="cyfra(4)">4</button>
+    <button class="przycisk" onclick="cyfra(5)">5</button>
+    <button class="przycisk" onclick="cyfra(6)">6</button>
+    <button class="przycisk" onclick="operacja('-')">-</button>
+    <br>
+    <button class="przycisk" onclick="cyfra(7)">7</button>
+    <button class="przycisk" onclick="cyfra(8)">8</button>
+    <button class="przycisk" onclick="cyfra(9)">9</button>
+    <button class="przycisk" onclick="operacja('*')">*</button>
+    <br>
+    <button class="przycisk" onclick="cyfra(0)">0</button>
+    <button class="przycisk" onclick="czysc()">C</button>
+    <button class="przycisk" onclick="oblicz()">=</button>
+    <button class="przycisk" onclick="operacja('/')">/</button>
+
+</div>
+<script>
+    let aktualnyWynik="";
+    let aktualnaOperacja="";
+    let poprzedniWynik="";
+    let aktualneDzialanie="";
+
+    function cyfra(cyfra){
+        aktualnyWynik +=cyfra;
+        aktualneDzialanie +=cyfra;
+        aktualizujWynikIDzialanie();
+    }
+    function operacja(op){
+        poprzedniWynik=aktualnyWynik;
+        aktualnyWynik="";
+        aktualnaOperacja="";
+        aktualnaOperacja=op;
+        aktualneDzialanie += " " + op+" ";
+        aktualizujWynikIDzialanie();
+    }
+    function czysc(){
+        aktualnyWynik="";
+        poprzedniWynik="";
+        aktualnaOperacja="";
+        aktualneDzialanie="";
+        aktualizujWynikIDzialanie();
+    }
+    function oblicz(){
+        let wynik;
+        switch(aktualnaOperacja){
+            case '+':
+                wynik=parseFloat(poprzedniWynik) + parseFloat(aktualnyWynik);
+                break;
+            case '-':
+            wynik=parseFloat(poprzedniWynik) - parseFloat(aktualnyWynik);
+                break;
+            case '*':
+            wynik=parseFloat(poprzedniWynik) * parseFloat(aktualnyWynik);
+                break;
+            case '/':
+            wynik=parseFloat(poprzedniWynik) / parseFloat(aktualnyWynik);
+                break;
+            default:
+                wynik=parseFloat(aktualnyWynik);
+        }
+        aktualnyWynik=wynik.toString();
+        aktualneDzialanie+=" = "+aktualnyWynik;
+        aktualizujWynikIDzialanie();
+        poprzedniWynik="";
+        aktualnaOperacja="";
+    }
+
+    function aktualizujWynikIDzialanie(){
+        document.getElementById("wynik").value=aktualnyWynik;
+        document.getElementById("dzialanie").innerText=aktualneDzialanie;
+    }
+</script>
+
+</body>
+
+</html>
