@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Kalkulator</title>
+<style>
+.calculator-container {
+    width: 265px;
+    height: 330px;
+    margin: auto;
+    border: 1px solid black;
+    padding: 10px;
+    border-radius: 7px;
+}
+
+.button {
+    width: 50px;
+    height: 50px;
+    margin: 5px;
+    border: 1px solid black;
+    text-align: center;
+    line-height: 50px;
+    cursor: pointer;
+}
+
+.operation-display {
+    margin: 1px;
+    border: 1px solid white;
+    padding: 1px;
+    text-align: right;
+}
+
+.result-display {
+    height: 50px;
+    width: 240px;
+    border: 1px solid black;
+}
+
+</style>
+</head>
+<body>
+<div class="calculator-container">
+    <div id="operation-display"></div>
+    <input type="text" id="result-display" readonly>
+    <br>
+    <button class="button" onclick="addDigit(1)">1</button>
+    <button class="button" onclick="addDigit(2)">2</button>
+    <button class="button" onclick="addDigit(3)">3</button>
+    <button class="button" onclick="performOperation('+')">+</button>
+    <br>
+    <button class="button" onclick="addDigit(4)">4</button>
+    <button class="button" onclick="addDigit(5)">5</button>
+    <button class="button" onclick="addDigit(6)">6</button>
+    <button class="button" onclick="performOperation('-')">-</button>
+    <br>
+    <button class="button" onclick="addDigit(7)">7</button>
+    <button class="button" onclick="addDigit(8)">8</button>
+    <button class="button" onclick="addDigit(9)">9</button>
+    <button class="button" onclick="performOperation('*')">*</button>
+    <br>
+    <button class="button" onclick="addDigit(0)">0</button>
+    <button class="button" onclick="clearCalculator()">C</button>
+    <button class="button" onclick="calculateResult()">=</button>
+    <button class="button" onclick="performOperation('/')">/</button>
+
+</div>
+<script>
+    let calculatorState = {
+    currentResult: "",
+    previousResult: "",
+    currentOperation: "",
+    currentExpression: "",
+    }
+
+    function addDigit(digit) {
+    calculatorState.currentResult += digit;
+    calculatorState.currentExpression += digit;
+    updateResultAndExpression();
+    }
+    function performOperation(operation) {
+    calculatorState.previousResult = calculatorState.currentResult;
+    calculatorState.currentResult = "";
+    calculatorState.currentOperation = operation;
+    calculatorState.currentExpression += ` ${operation} `;
+    updateResultAndExpression();
+    }
+
+    function clearCalculator() {
+    calculatorState.currentResult = "";
+    calculatorState.previousResult = "";
+    calculatorState.currentOperation = "";
+    calculatorState.currentExpression = "";
+    updateResultAndExpression();
+    }
+    function calculateResult() {
+    let result;
+    switch (calculatorState.currentOperation) {
+        case '+':
+            result = parseFloat(calculatorState.previousResult) + parseFloat(calculatorState.currentResult);
+            break;
+        case '-':
+            result = parseFloat(calculatorState.previousResult) - parseFloat(calculatorState.currentResult);
+            break;
+        case '*':
+            result = parseFloat(calculatorState.previousResult) * parseFloat(calculatorState.currentResult);
+            break;
+        case '/':
+            result = parseFloat(calculatorState.previousResult) / parseFloat(calculatorState.currentResult);
+            break;
+        default:
+            result = parseFloat(calculatorState.currentResult);
+    }
+
+    calculatorState.currentResult = result.toString();
+    calculatorState.currentExpression += ` = ${calculatorState.currentResult}`;
+    updateResultAndExpression();
+
+    calculatorState.previousResult = "";
+    calculatorState.currentOperation = "";
+    }
+
+
+    function updateResultAndExpression() {
+    document.getElementById("wynik").value = calculatorState.currentResult;
+    document.getElementById("dzialanie").innerText = calculatorState.currentExpression;
+    }
+</script>
+
+</body>
+
+</html>
