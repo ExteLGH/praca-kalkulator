@@ -6,98 +6,71 @@ let operator = '';
 let firstNumber = '';
 let secondNumber = '';
 
-function factorial(n) {
-  let result = 1;
-  for (let i = 2; i <= n; i++) {
-    result *= i;
-  }
-  return result;
+function calculate() {
+    let result;
+    const parsedFirstNumber = parseFloat(firstNumber);
+    const parsedSecondNumber = parseFloat(secondNumber);
+
+    switch (operator) {
+        case '+':
+            result = parsedFirstNumber + parsedSecondNumber;
+            break;
+        case '-':
+            result = parsedFirstNumber - parsedSecondNumber;
+            break;
+        case '×':
+            result = parsedFirstNumber * parsedSecondNumber;
+            break;
+        case '÷':
+            result = parsedFirstNumber / parsedSecondNumber;
+            break;
+        case 'x^y':
+            result = Math.pow(parsedFirstNumber, parsedSecondNumber);
+            break;
+        case '√':
+            result = Math.sqrt(parsedSecondNumber); 
+            break;
+    }
+
+    display.innerText = result;
+    operationInProgress = false;
+    operator = '';
+    firstNumber = result.toString();
+    secondNumber = '';
 }
 
 buttons.forEach((item) => {
-  item.onclick = () => {
-    if (item.id == "clear") {
-      display.innerText = "";
-      operationInProgress = false;
-      operator = '';
-      firstNumber = '';
-      secondNumber = '';
-    } else if (item.id == "backspace") {
-      let string = display.innerText.toString();
-      display.innerText = string.substr(0, string.length - 1);
-      if (!operationInProgress) {
-        firstNumber = display.innerText;
-      } else {
-        secondNumber = display.innerText.replace(firstNumber + operator, '');
-      }
-    } else if (item.id == "equal") {
-      if (operationInProgress) {
-        secondNumber = display.innerText.replace(firstNumber + operator, '');
-        let result;
-        switch (operator) {
-          case '+':
-            result = parseFloat(firstNumber) + parseFloat(secondNumber);
-            break;
-          case '-':
-            result = parseFloat(firstNumber) - parseFloat(secondNumber);
-            break;
-          case '*':
-            result = parseFloat(firstNumber) * parseFloat(secondNumber);
-            break;
-          case '/':
-            result = parseFloat(firstNumber) / parseFloat(secondNumber);
-            break;
-          case 'x^y':
-            result = Math.pow(parseFloat(firstNumber), parseFloat(secondNumber));
-            break;
-          case '√':
-            result = Math.sqrt(parseFloat(secondNumber));
-            break;
-          case '!':
-            result = factorial(parseInt(firstNumber));
-            break;
-          default:
-            result = "Error";
-            break;
+    item.onclick = () => {
+        if (item.id === "clear") {
+            display.innerText = "";
+            operationInProgress = false;
+            operator = '';
+            firstNumber = '';
+            secondNumber = '';
+        } else if (item.id === "backspace") {
+            display.innerText = display.innerText.slice(0, -1);
+            if (!operationInProgress || operator) {
+                secondNumber = display.innerText;
+            } else {
+                firstNumber = display.innerText;
+            }
+        } else if (item.id === "equal") {
+            calculate();
+        } else if (item.classList.contains("btn-operator")) {
+            if (!operationInProgress) {
+                operationInProgress = true;
+                operator = item.id === "incitement" ? 'x^y' : item.innerText;
+                display.innerText += operator === 'x^y' ? '^' : operator;
+            }
+        } else {
+            if (!operationInProgress) {
+                firstNumber += item.innerText;
+            } else {
+                secondNumber += item.innerText;
+            }
+            display.innerText += item.innerText;
         }
-        display.innerText = result;
-        operationInProgress = false;
-        operator = '';
-        firstNumber = '';
-        secondNumber = '';
-      }
-    } else if (item.classList.contains("btn-operator")) {
-      if (!operationInProgress && item.id !== "incitement" && item.id !== "elementalization" && item.id !== "factorial") {
-        operationInProgress = true;
-        operator = item.innerText;
-        firstNumber = display.innerText;
-        display.innerText += operator;
-      } else if (item.id === "incitement") {
-        operationInProgress = true;
-        operator = 'x^y';
-        firstNumber = display.innerText;
-        display.innerText += '^';
-      } else if (item.id === "elementalization") {
-        operationInProgress = true;
-        operator = '√';
-        firstNumber = '';
-        secondNumber = display.innerText;
-        display.innerText = '√';
-      } else if (item.id === "factorial") {
-        operationInProgress = true;
-        operator = '!';
-        firstNumber = display.innerText;
-        display.innerText += '!';
-      }
-    } else {
-      display.innerText += item.innerText;
-      if (!operationInProgress || operator === '√') {
-        secondNumber += item.innerText;
-      } else {
-        firstNumber += item.innerText;
-      }
-    }
-  };
+    };
 });
 const themeToggleBtn = document.querySelector(".theme-toggler");
 const calculator = document.querySelector(".calculator");
