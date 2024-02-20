@@ -18,3 +18,6 @@ wynik to uzytkownik moze wprowadzic kolejna operacje oraz liczbe gdzie dzialanie
 Dodano zasady clean code. lepiej przejrzysty kod i latwiejszy do zrozumienai. zastosowano angielskie nazwy dzieki czemu kazdy moze odnalezc sie w kodzie
 
 Zmieniono caly kod, przepisano na nowo apliakcje, dodano tlo, wyglad kalkulatora oraz obrys niego. naprawiono bledy zwiazane z wielkoscia liczb oraz wiele innych bledow.
+
+release 0.8:
+znowu zmieniono kod, zmieniono cala strukture strony (nowy wyglad), zmieniono kod w js, css i html oraz dodano potegowanie, pierwiastkowanie oraz silnie.
