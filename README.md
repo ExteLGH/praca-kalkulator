@@ -20,5 +20,5 @@ Dodano zasady clean code. lepiej przejrzysty kod i latwiejszy do zrozumienai. za
 Zmieniono caly kod, przepisano na nowo apliakcje, dodano tlo, wyglad kalkulatora oraz obrys niego. naprawiono bledy zwiazane z wielkoscia liczb oraz wiele innych bledow.
 
 release 0.8:
-znowu zmieniono kod, zmieniono cala strukture strony (nowy wyglad), zmieniono kod w js, css i html oraz dodano potegowanie, pierwiastkowanie.
+znowu zmieniono kod, zmieniono cala strukture strony (nowy wyglad), zmieniono kod w js, css i html oraz dodano potegowanie, pierwiastkowanie. NAWIASY JESZCZE NIE DZIALAJA
 
