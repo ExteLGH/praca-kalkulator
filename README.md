@@ -1,5 +1,5 @@
 Do czego służy aplikacja?
-Ogólnie aplikacja służy do wykonywania działań matematycznych, aktualnie tylko dodawanie, odejmowanie, mnożenie i dzielenie.
+Ogólnie aplikacja służy do wykonywania działań matematycznych, aktualnie dodawanie, odejmowanie, dzielenie, mnozenie, potegowanie, pierwiastkowanie, silnia
 
 Jak działa aplikacja?
 Aplikacja działa w bardzo prosty sposób jest to zwykły kalkulator, który wykonuje obliczenia matematyczne.
